@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const AjouterEleve = () => {
   const [formData, setFormData] = useState({ nom: '', prenom: '', classe: '', dateNaissance: '', sexe: '' });
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log('--- DEBUG INFO ---');
-    console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
-    console.log('------------------');
-  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,6 +22,12 @@ const AjouterEleve = () => {
 
   return (
     <div className="p-4 max-w-md mx-auto">
+      {/* --- BANDEAU DE DÉBOGAGE --- */}
+      <div style={{ padding: '10px', backgroundColor: '#fffbe6', border: '1px solid #ffe58f', marginBottom: '20px', color: 'black', borderRadius: '5px' }}>
+        <p style={{ fontWeight: 'bold' }}>Info de débogage :</p>
+        <p>URL de l'API utilisée : <strong style={{ color: '#d4380d' }}>{import.meta.env.VITE_API_URL || 'Non définie (utilise localhost:5000)'}</strong></p>
+      </div>
+
       <h1 className="text-2xl font-bold mb-4">Ajouter un Élève</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="nom" placeholder="Nom" onChange={handleChange} className="w-full p-2 border rounded" required />
