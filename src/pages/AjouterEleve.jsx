@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const AjouterEleve = () => {
   const [formData, setFormData] = useState({ nom: '', prenom: '', classe: '', dateNaissance: '', sexe: '' });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log('--- DEBUG INFO ---');
+    console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+    console.log('------------------');
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -13,7 +19,7 @@ const AjouterEleve = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/eleves', formData);
+      await api.post('/eleves', formData);
       navigate('/eleves');
     } catch (error) {
       console.error("Erreur lors de l'ajout de l'élève :", error);
