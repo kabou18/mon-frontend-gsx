@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const ModifierEleve = () => {
@@ -9,7 +9,7 @@ const ModifierEleve = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/eleves/${id}`)
+    api.get(`/eleves/${id}`)
       .then(res => {
         const data = res.data;
         setEleve({
@@ -33,7 +33,7 @@ const ModifierEleve = () => {
       alert('Mot de passe incorrect');
       return;
     }
-    axios.put(`http://localhost:5000/api/eleves/${id}`, eleve)
+    api.put(`/eleves/${id}`, eleve)
       .then(() => navigate('/eleves'))
       .catch(err => console.error("Erreur de mise à jour :", err));
   };

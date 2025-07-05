@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const Statistiques = () => {
   const [statistiques, setStatistiques] = useState({});
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/statistiques')
+    api.get('/statistiques')
       .then(res => setStatistiques(res.data))
       .catch(err => console.error("Erreur de chargement des statistiques :", err));
   }, []);

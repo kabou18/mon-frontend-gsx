@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { Link } from 'react-router-dom';
 import ConfirmPasswordModal from '../components/ConfirmPasswordModal';
 import AjouterPaiementModal from '../components/AjouterPaiementModal';
@@ -11,7 +11,7 @@ const Eleves = () => {
   const [classeFiltre, setClasseFiltre] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/eleves')
+    api.get('/eleves')
       .then(response => setEleves(response.data))
       .catch(error => console.error('Erreur de chargement des élèves :', error));
   }, []);
