@@ -42,7 +42,7 @@ function App() {
                     <Route path="/eleves" element={<Eleves />} />
                     <Route path="/eleves/ajouter" element={<AjouterEleve />} />
                     <Route path="/eleves/modifier/:id" element={<ModifierEleve />} />
-                    <Route path="/eleves/supprimer/:id" element={<SupprimerEleve />} />
+                    
                     <Route path="/paiements" element={<Paiements />} />
                     <Route path="/statistiques" element={<Statistiques />} />
                     <Route path="/ajouterPaiement" element={<AjouterPaiement />} />

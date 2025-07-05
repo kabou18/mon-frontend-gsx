@@ -10,6 +10,19 @@ const Eleves = () => {
   const [showPaiementModal, setShowPaiementModal] = useState(false);
   const [classeFiltre, setClasseFiltre] = useState('');
 
+  const handleDelete = async (id) => {
+    if (window.confirm('Êtes-vous sûr de vouloir supprimer cet élève ?')) {
+      try {
+        await api.delete(`/eleves/${id}`);
+        setEleves(eleves.filter(eleve => eleve._id !== id));
+        alert('Élève supprimé avec succès !');
+      } catch (error) {
+        console.error('Erreur lors de la suppression de l\'élève:', error);
+        alert('Erreur lors de la suppression de l\'élève.');
+      }
+    }
+  };
+
   useEffect(() => {
     api.get('/eleves')
       .then(response => setEleves(response.data))
@@ -61,7 +74,7 @@ const Eleves = () => {
             .filter(eleve => !classeFiltre || eleve.classe === classeFiltre)
             .map((eleve, index) => (
             <tr key={index}>
-              <td className="py-2 px-4 border">{eleve.identifiant}</td>
+              <td className="py-2 px-4 border">{eleve._id}</td>
               <td className="py-2 px-4 border">{eleve.nom}</td>
               <td className="py-2 px-4 border">{eleve.prenom}</td>
               <td className="py-2 px-4 border">{eleve.classe}</td>
@@ -69,7 +82,7 @@ const Eleves = () => {
                 <Link to={`/eleves/modifier/${eleve._id}`} className="text-blue-500">Modifier</Link>
               </td>
               <td className="py-2 px-4 border">
-                <Link to={`/eleves/supprimer/${eleve._id}`} className="text-red-500">Supprimer</Link>
+                <button onClick={() => handleDelete(eleve._id)} className="btn btn-danger">Supprimer</button>
               </td>
               <td className="py-2 px-4 border">
                 <button
