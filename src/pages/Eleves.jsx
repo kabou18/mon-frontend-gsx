@@ -96,7 +96,7 @@ const Eleves = () => {
             .filter(eleve => !classeFiltre || eleve.classe === classeFiltre)
             .map(eleve => (
             <tr key={eleve._id}>
-              <td className="py-2 px-4 border">{eleve._id}</td>
+              <td className="py-2 px-4 border">{eleve.matricule}</td>
               <td className="py-2 px-4 border">{eleve.nom}</td>
               <td className="py-2 px-4 border">{eleve.prenom}</td>
               <td className="py-2 px-4 border">{eleve.classe}</td>
