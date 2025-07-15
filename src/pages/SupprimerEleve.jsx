@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const SupprimerEleve = () => {
@@ -9,7 +9,7 @@ const SupprimerEleve = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/eleves/${id}`)
+    api.get(`/eleves/${id}`)
       .then(res => setEleve(res.data))
       .catch(err => console.error("Erreur de chargement :", err));
   }, [id]);
@@ -20,7 +20,7 @@ const SupprimerEleve = () => {
       return;
     }
     try {
-      await axios.delete(`http://localhost:5000/api/eleves/${id}`);
+      await api.delete(`/eleves/${id}`);
       navigate('/eleves');
     } catch (err) {
       console.error("Erreur de suppression :", err);
