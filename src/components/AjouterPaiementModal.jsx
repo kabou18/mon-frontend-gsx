@@ -17,7 +17,7 @@ const AjouterPaiementModal = ({ eleve, onClose }) => {
 
     setLoading(true);
     try {
-      await api.post('/paiements/ajouter', {
+      await api.post('/paiements', {
         eleveId: eleve._id,
         mois: type === 'mensualite' ? mois : undefined,
         montant: parseFloat(montant),

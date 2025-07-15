@@ -16,7 +16,7 @@ const Dashboard = () => {
 useEffect(() => {
   const fetchStats = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/statistiques');
+      const response = await api.get('/statistiques');
       setStats(response.data);
     } catch (error) {
       console.error('Erreur de récupération des statistiques:', error);
