@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const AjouterPaiementModal = ({ eleve, onClose }) => {
   const [type, setType] = useState('mensualite');
@@ -10,17 +10,15 @@ const AjouterPaiementModal = ({ eleve, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (Number(montant) <= 0) {
-      alert('Le montant doit être supérieur à 0');
+    if (!montant || parseFloat(montant) <= 0) {
+      alert('Le montant doit être un nombre supérieur à 0');
       return;
     }
 
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/paiements/ajouter', {
-        nom: eleve.nom,
-        prenom: eleve.prenom,
-        classe: eleve.classe,
+      await api.post('/paiements/ajouter', {
+        eleveId: eleve._id,
         mois: type === 'mensualite' ? mois : undefined,
         montant: parseFloat(montant),
         type
@@ -37,11 +35,8 @@ const AjouterPaiementModal = ({ eleve, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
       <div className="bg-white p-6 rounded shadow-lg w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Ajouter un Paiement</h2>
+        <h2 className="text-xl font-bold mb-4">Ajouter un Paiement pour {eleve.prenom} {eleve.nom}</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-          <input type="text" value={eleve.nom} disabled className="border px-2 py-1" />
-          <input type="text" value={eleve.prenom} disabled className="border px-2 py-1" />
-          <input type="text" value={eleve.classe} disabled className="border px-2 py-1" />
           <select value={type} onChange={e => setType(e.target.value)} required className="border px-2 py-1">
             <option value="mensualite">Mensualité</option>
             <option value="inscription">Inscription</option>
